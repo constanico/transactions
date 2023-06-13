@@ -1,14 +1,14 @@
 {
- "transactions" : [
-   {
-     "tx_id" : "TX001",
-     "amount" : 150000,
-     "status" : "SETTLED"
-   },
-   {
-     "tx_id" : "TX002",
-     "amount" : 80000,
-     "status" : "SUCCESS"
-   }
- ]
+  "transactions": [
+    {
+      "tx_id": "TX001",
+      "amount": 150000,
+      "status": "SUCCESS"
+    },
+    {
+      "tx_id": "TX002",
+      "amount": 80000,
+      "status": "FAILED"
+    }
+  ]
 }
