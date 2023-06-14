@@ -1,11 +1,11 @@
 package com.bca.transaction.controller
 
-import com.bca.transaction.datasource.TransactionList
+import com.bca.transaction.model.TransactionList
 import com.bca.transaction.model.Transaction
 import com.bca.transaction.service.TransactionService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpEntity
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -17,18 +17,15 @@ class TransactionController(private val transactionService: TransactionService) 
 
     @CrossOrigin
     @PostMapping("/sale")
-    fun transactionSale(): TransactionList {
-        val transactionList = TransactionList()
-        transactionList.transactions.add(Transaction("TX001",150000,"SUCCESS"))
-        transactionList.transactions.add(Transaction("TX002",80000,"FAILED"))
-        val requestBody = HttpEntity(transactionList)
-        transactionService.postTransactions(requestBody)
-        return transactionList
+    fun transactionSale(@RequestBody req: Transaction): String {
+        val request = objectMapper.writeValueAsString(req)
+        transactionService.postTransaction(request)
+        return "Success"
     }
 
     @CrossOrigin
     @GetMapping("/history")
-    fun transactionHistory(): Collection<Transaction> {
+    fun transactionHistory(): ResponseEntity<TransactionList> {
         return transactionService.getTransactions()
     }
 }

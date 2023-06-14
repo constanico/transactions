@@ -1,10 +1,10 @@
 package com.bca.transaction.service
 
-import com.bca.transaction.datasource.TransactionList
 import com.bca.transaction.model.Transaction
-import org.springframework.http.HttpEntity
+import com.bca.transaction.model.TransactionList
+import org.springframework.http.ResponseEntity
 
 interface TransactionService {
-    fun postTransactions(req: HttpEntity<TransactionList>): String
-    fun getTransactions(): Collection<Transaction>
+    fun postTransaction(req: String): ResponseEntity<Transaction>
+    fun getTransactions(): ResponseEntity<TransactionList>
 }

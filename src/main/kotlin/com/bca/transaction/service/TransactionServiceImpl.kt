@@ -1,15 +1,20 @@
 package com.bca.transaction.service
 
-import com.bca.transaction.datasource.TransactionDataSource
-import com.bca.transaction.datasource.TransactionList
 import com.bca.transaction.model.Transaction
-import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.http.HttpEntity
+import com.bca.transaction.model.TransactionList
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.web.client.RestTemplate
 
 @Service
-class TransactionServiceImpl(@Qualifier("network") private val dataSource: TransactionDataSource) : TransactionService {
-    override fun postTransactions(req: HttpEntity<TransactionList>): String = dataSource.sendTransactions(req)
+class TransactionServiceImpl(@Autowired private val restTemplate: RestTemplate) : TransactionService {
 
-    override fun getTransactions(): Collection<Transaction> = dataSource.retrieveTransactions()
+    override fun postTransaction(req: String): ResponseEntity<Transaction> {
+        return restTemplate.postForEntity("http://localhost:8080/payment/sale", req, Transaction::class.java)
+    }
+
+    override fun getTransactions(): ResponseEntity<TransactionList> {
+        return restTemplate.getForEntity("http://localhost:8080/payment/sale", TransactionList::class.java)
+    }
 }

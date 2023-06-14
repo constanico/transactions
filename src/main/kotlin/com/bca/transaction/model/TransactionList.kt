@@ -1,4 +1,4 @@
-package com.bca.transaction.datasource
+package com.bca.transaction.model
 
 import com.bca.transaction.model.Transaction
 
