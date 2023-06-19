@@ -10,11 +10,11 @@ import org.springframework.web.client.RestTemplate
 @Service
 class TransactionServiceImpl(@Autowired private val restTemplate: RestTemplate) : TransactionService {
 
-    override fun postTransaction(req: String): ResponseEntity<Transaction> {
-        return restTemplate.postForEntity("http://localhost:8080/payment/sale", req, Transaction::class.java)
+    override fun postTransaction(req: Transaction): ResponseEntity<Transaction> {
+        return restTemplate.postForEntity("http://localhost:3001/payment/sale", req, Transaction::class.java)
     }
 
     override fun getTransactions(): ResponseEntity<TransactionList> {
-        return restTemplate.getForEntity("http://localhost:8080/payment/sale", TransactionList::class.java)
+        return restTemplate.getForEntity("http://localhost:3001/payment/sale", TransactionList::class.java)
     }
 }
